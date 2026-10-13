@@ -301,7 +301,10 @@ function Index() {
             </div>
           </div>
           <div className="relative">
-            <div className="relative overflow-hidden rounded-[34px] shadow-[0_24px_70px_#0000001f]">
+            <span className="absolute -top-5 right-6 z-10 rotate-3 rounded-full bg-[#008b96] px-5 py-2 font-serif text-lg font-bold text-white shadow-xl">
+              Tour 2027
+            </span>
+            <div className="relative overflow-hidden rounded-[34px] ring-1 ring-[#2023261f] shadow-[0_24px_70px_#0000001f]">
               <video
                 ref={videoRef}
                 src={VIDEO_URL}
