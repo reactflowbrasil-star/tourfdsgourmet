@@ -237,13 +237,45 @@ function Index() {
 
       {/* Hero */}
       <section id="top" className="relative overflow-hidden">
-        <div className="mx-auto grid max-w-[1180px] items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+        {/* decorative background */}
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-32 -right-32 h-[480px] w-[480px] rounded-full bg-[#008b96]/10 blur-3xl" />
+          <div className="absolute -bottom-40 -left-32 h-[420px] w-[420px] rounded-full bg-[#ff6a00]/10 blur-3xl" />
+          <span className="absolute -top-6 left-1/2 -translate-x-1/2 select-none font-serif text-[22vw] font-bold leading-none tracking-tight text-[#008b96]/5">
+            2027
+          </span>
+        </div>
+        <div className="relative mx-auto grid max-w-[1180px] items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
           <div>
-            <span className="inline-block rounded-full bg-[#dff4f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#008b96]">
-              Apresentação de negócio
-            </span>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#ff6a00] to-[#d95500] px-5 py-2 text-sm font-extrabold uppercase tracking-[0.2em] text-white shadow-lg shadow-[#ff6a00]/30">
+                <span className="absolute inset-0 -translate-x-full animate-[shimmer_2.5s_infinite] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                Tour Brasil 2027
+              </span>
+              <span className="inline-block rounded-full bg-[#dff4f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-[#008b96]">
+                Apresentação de negócio
+              </span>
+            </div>
             <h1 className="mt-6 font-serif text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-              Leve o <span className="text-[#008b96]">FDS Gourmet Festival</span> para sua cidade.
+              Leve o <span className="text-[#008b96]">FDS Gourmet Festival</span> para sua cidade{" "}
+              <span className="relative inline-block whitespace-nowrap text-[#ff6a00]">
+                em 2027
+                <svg
+                  className="absolute -bottom-2 left-0 w-full"
+                  viewBox="0 0 200 12"
+                  fill="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M3 9C60 3 140 3 197 8"
+                    stroke="#ff6a00"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    opacity="0.5"
+                  />
+                </svg>
+              </span>
+              .
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#666b70]">
               Um evento gratuito, familiar e estruturado para movimentar a economia local com
