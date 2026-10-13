@@ -423,7 +423,7 @@ function Index() {
               {VIDEO_EDITIONS.map((edition, index) => {
                 const cover = edition.videoId
                   ? "https://img.youtube.com/vi/" + edition.videoId + "/hqdefault.jpg"
-                  : "/assets/pages/page-02.webp";
+                  : "https://s01.video.glbimg.com/x720/6077204.jpg";
                 const content = (
                   <>
                     <div className="relative aspect-video overflow-hidden bg-[#202326]">
