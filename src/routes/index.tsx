@@ -49,8 +49,16 @@ export const Route = createFileRoute("/")({
 const WHATSAPP_URL =
   "https://wa.me/5562982195886?text=Ol%C3%A1!%20Tenho%20interesse%20em%20participar%20do%20FDS%20Gourmet%202027.";
 const VIDEO_URL = "https://growmoneydigital.com.br/conferflow/video.mp4";
-const GALLERY_PAGES = Array.from({ length: 20 }, (_, i) => i + 1);
-const pad = (n: number) => String(n).padStart(2, "0");
+type VideoEdition = { title: string; city: string; videoId?: string; start?: number; externalUrl?: string };
+
+const VIDEO_EDITIONS: VideoEdition[] = [
+  { title: "Edição Araxá", city: "Araxá – MG", externalUrl: "https://globoplay.globo.com/v/6077204/" },
+  { title: "Edição Buriti Shopping", city: "Goiânia – GO", videoId: "aWa9Laq2plY" },
+  { title: "Edição Brasil Park Shopping", city: "Anápolis – GO", videoId: "Odnd-T6512c", start: 27 },
+  { title: "Edição Uberaba Shopping", city: "Uberaba – MG", videoId: "3UTRof8YVNQ", start: 10 },
+  { title: "Edição Centro Cultural Oscar Niemeyer", city: "Goiânia – GO", videoId: "xBKNsqVE-0" },
+  { title: "Edição Buriti Shopping", city: "Goiânia – GO", videoId: "HvpVp4a280U" },
+];
 
 const NAV = [
   { label: "O festival", href: "#sobre" },
@@ -160,7 +168,7 @@ function SectionHeading({
 function Index() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
-  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [activeVideo, setActiveVideo] = useState<VideoEdition | null>(null);
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
@@ -177,23 +185,7 @@ function Index() {
     setMuted(video.muted);
   }, []);
 
-  const closeLightbox = useCallback(() => setLightbox(null), []);
-  const stepLightbox = useCallback((direction: number) => {
-    setLightbox((current) =>
-      current === null ? current : (current + direction + GALLERY_PAGES.length) % GALLERY_PAGES.length,
-    );
-  }, []);
 
-  useEffect(() => {
-    if (lightbox === null) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeLightbox();
-      if (event.key === "ArrowRight") stepLightbox(1);
-      if (event.key === "ArrowLeft") stepLightbox(-1);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox, closeLightbox, stepLightbox]);
 
   return (
     <div className="min-h-screen bg-[#f8f4ec] font-sans text-[#202326]">
@@ -426,13 +418,42 @@ function Index() {
 
         <section id="galeria" className="py-20">
           <div className="mx-auto max-w-[1180px] px-4">
-            <SectionHeading kicker="Galeria" title="Recordações de edições anteriores" text="Veja momentos de festivais realizados em cidades como Goiânia, Rio Verde, Uberaba e Araxá. Clique em uma imagem para ampliar." />
-            <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              {GALLERY_PAGES.map((number, index) => (
-                <button key={number} onClick={() => setLightbox(index)} aria-label={"Ampliar foto da edição " + number} className="group overflow-hidden rounded-[16px] border border-[#2023261f] bg-white transition-shadow hover:shadow-[0_24px_70px_#0000001f]">
-                  <img src={"/assets/thumbs/page-" + pad(number) + ".webp"} alt={"Momento de uma edição anterior do FDS Gourmet, imagem " + number} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105" />
-                </button>
-              ))}
+            <SectionHeading kicker="Galeria" title="Recordações de edições anteriores" text="Reviva momentos do FDS Gourmet em diferentes cidades. Selecione uma edição para assistir ao vídeo." />
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {VIDEO_EDITIONS.map((edition, index) => {
+                const cover = edition.videoId
+                  ? "https://img.youtube.com/vi/" + edition.videoId + "/hqdefault.jpg"
+                  : "/assets/pages/page-02.webp";
+                const content = (
+                  <>
+                    <div className="relative aspect-video overflow-hidden bg-[#202326]">
+                      <img src={cover} alt={"Capa do vídeo: " + edition.title + ", " + edition.city} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                      <span className="absolute inset-0 flex items-center justify-center bg-black/15 transition-colors group-hover:bg-black/30">
+                        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#ff0000] text-white shadow-xl">
+                          <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-1 h-6 w-6 fill-current"><path d="M8 5v14l11-7z" /></svg>
+                        </span>
+                      </span>
+                      <span className="absolute left-3 top-3 rounded-full bg-black/65 px-3 py-1 text-xs font-semibold text-white">
+                        {edition.externalUrl ? "GloboPlay" : "YouTube"}
+                      </span>
+                    </div>
+                    <div className="p-5">
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#ff6a00]">{edition.city}</p>
+                      <h3 className="mt-2 font-serif text-lg font-bold text-[#202326]">{edition.title}</h3>
+                      <p className="mt-2 text-sm text-[#666b70]">{edition.externalUrl ? "Assistir no GloboPlay" : "Assistir ao vídeo"}</p>
+                    </div>
+                  </>
+                );
+                return edition.externalUrl ? (
+                  <a key={edition.title + edition.city + index} href={edition.externalUrl} target="_blank" rel="noreferrer" className="group overflow-hidden rounded-[20px] border border-[#2023261f] bg-white text-left transition-shadow hover:shadow-[0_24px_70px_#0000001f]" aria-label={"Abrir no GloboPlay: " + edition.title + ", " + edition.city}>
+                    {content}
+                  </a>
+                ) : (
+                  <button key={edition.title + edition.city + index} type="button" onClick={() => setActiveVideo(edition)} className="group overflow-hidden rounded-[20px] border border-[#2023261f] bg-white text-left transition-shadow hover:shadow-[0_24px_70px_#0000001f]" aria-label={"Assistir: " + edition.title + ", " + edition.city}>
+                    {content}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -519,12 +540,27 @@ function Index() {
         </a>
       ) : null}
 
-      {lightbox !== null ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4" onClick={closeLightbox} role="dialog" aria-modal="true" aria-label="Galeria de fotos">
-          <button aria-label="Fechar galeria" onClick={closeLightbox} className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"><X className="h-6 w-6" /></button>
-          <button aria-label="Imagem anterior" onClick={(event) => { event.stopPropagation(); stepLightbox(-1); }} className="absolute left-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"><ChevronLeft className="h-6 w-6" /></button>
-          <img src={"/assets/pages/page-" + pad(GALLERY_PAGES[lightbox] ?? 1) + ".webp"} alt={"Imagem " + (lightbox + 1) + " ampliada"} onClick={(event) => event.stopPropagation()} className="max-h-[85vh] max-w-full rounded-lg object-contain" />
-          <button aria-label="Próxima imagem" onClick={(event) => { event.stopPropagation(); stepLightbox(1); }} className="absolute right-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"><ChevronRight className="h-6 w-6" /></button>
+      {activeVideo ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4" onClick={() => setActiveVideo(null)} role="dialog" aria-modal="true" aria-label={"Vídeo " + activeVideo.title}>
+          <button type="button" aria-label="Fechar vídeo" onClick={() => setActiveVideo(null)} className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20">
+            <X className="h-6 w-6" />
+          </button>
+          <div className="w-full max-w-5xl overflow-hidden rounded-2xl bg-black shadow-2xl" onClick={(event) => event.stopPropagation()}>
+            <div className="aspect-video">
+              <iframe
+                src={"https://www.youtube-nocookie.com/embed/" + activeVideo.videoId + "?autoplay=1&rel=0" + (activeVideo.start ? "&start=" + activeVideo.start : "")}
+                title={activeVideo.title + " — " + activeVideo.city}
+                className="h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+            <div className="px-5 py-4 text-white">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#ff9b54]">{activeVideo.city}</p>
+              <h2 className="mt-1 font-serif text-xl font-bold">{activeVideo.title}</h2>
+            </div>
+          </div>
         </div>
       ) : null}
     </div>
