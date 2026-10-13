@@ -296,7 +296,7 @@ function Index() {
                 Descubra o que vem por aí <ChevronRight className="h-4 w-4" />
               </a>
             </div>
-            <img src="/assets/pages/page-02.webp" alt="Público e experiências de uma edição do FDS Gourmet" loading="lazy" className="w-full rounded-[24px] shadow-[0_24px_70px_#0000001f]" />
+            <img src="/assets/fds-2027-02.jpg" alt="Público e experiências de uma edição do FDS Gourmet" loading="lazy" className="w-full rounded-[24px] shadow-[0_24px_70px_#0000001f]" />
           </div>
         </section>
 
@@ -320,7 +320,7 @@ function Index() {
 
         <section id="cidade" className="py-20">
           <div className="mx-auto grid max-w-[1180px] items-center gap-12 px-4 md:grid-cols-2">
-            <img src="/assets/pages/page-04.webp" alt="Empreendedores e visitantes reunidos no festival" loading="lazy" className="w-full rounded-[24px] shadow-[0_24px_70px_#0000001f]" />
+            <img src="/assets/fds-2027-18.jpg" alt="Empreendedores e visitantes reunidos no festival" loading="lazy" className="w-full rounded-[24px] shadow-[0_24px_70px_#0000001f]" />
             <div>
               <SectionHeadingLeft kicker="A cidade no centro do festival" title="O melhor da sua cidade, reunido em um só lugar." />
               <p className="mt-6 leading-relaxed text-[#666b70]">
@@ -390,7 +390,7 @@ function Index() {
                 Tenho interesse em participar <ChevronRight className="h-4 w-4" />
               </a>
             </div>
-            <img src="/assets/pages/page-05.webp" alt="Área de expositores e empreendedores do FDS Gourmet" loading="lazy" className="w-full rounded-[24px] shadow-[0_24px_70px_#0000001f]" />
+            <img src="/assets/fds-2027-17.jpg" alt="Área de expositores e empreendedores do FDS Gourmet" loading="lazy" className="w-full rounded-[24px] shadow-[0_24px_70px_#0000001f]" />
           </div>
         </section>
 
