@@ -348,7 +348,7 @@ function Index() {
         </section>
 
         <section className="bg-[#202326] py-20 text-white">
-          <div className="mx-auto max-w-[1180px] px-4">
+          <div className="mx-auto max-w-[1180px] px-4 [&_h2]:!text-white [&_p]:!text-white/70">
             <SectionHeading kicker="Benefícios para a cidade" title="Uma experiência que movimenta a cidade inteira" text="O festival reúne lazer gratuito e oportunidades para a economia local." />
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {BENEFITS.map((benefit) => (
