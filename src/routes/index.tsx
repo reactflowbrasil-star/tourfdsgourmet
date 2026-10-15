@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AgencySignature } from "@/components/agency-identity";
+import InversionCircleScrollAnimation from "@/components/ui/inversion-circle-scroll-animation";
 import {
   UtensilsCrossed,
   Beer,
@@ -214,6 +215,11 @@ function Index() {
       </header>
 
       <main>
+        <InversionCircleScrollAnimation
+          kicker="Tour Brasil 2027"
+          title="FDS GOURMET 2027"
+          subtitle="Um fim de semana para celebrar sabores, música e cultura."
+        />
         <section id="top" className="relative overflow-hidden">
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <div className="absolute -right-32 -top-32 h-[480px] w-[480px] rounded-full bg-[#008b96]/10 blur-3xl" />
