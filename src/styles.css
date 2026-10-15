@@ -59,9 +59,17 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-agency-surface: var(--agency-surface);
+  --color-agency-foreground: var(--agency-foreground);
+  --color-agency-accent: var(--agency-accent);
 }
 
 :root {
+  --agency-surface: oklch(0.255 0.008 240);
+  --agency-foreground: oklch(0.98 0.005 200);
+  --agency-accent: oklch(0.58 0.099 204);
+  --agency-muted: oklch(0.79 0.013 200);
+  --agency-border: oklch(0.98 0.005 200 / 16%);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -139,6 +147,73 @@
   100% {
     transform: translateX(100%);
   }
+}
+
+.agency-opening {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--agency-surface);
+  color: var(--agency-foreground);
+  animation: agency-screen 7s linear forwards;
+}
+.agency-opening-content { width: min(100%, 440px); text-align: center; }
+.agency-opening-logo { animation: agency-logo-in 2s ease-out .5s both; }
+.agency-logo { display: block; width: 100%; height: auto; object-fit: contain; }
+.agency-logo-fallback { font: 600 24px/1.4 ui-sans-serif, system-ui, sans-serif; }
+.agency-opening-label {
+  margin: 28px 0 24px;
+  font: 600 12px/1.5 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+  color: var(--agency-muted);
+  animation: agency-enter 1.5s ease-out 2s both;
+}
+.agency-whatsapp {
+  width: 52px;
+  height: 52px;
+  color: var(--agency-foreground);
+  border: 1px solid var(--agency-border);
+  border-radius: 50%;
+  animation: agency-enter 1.5s ease-out 3s both;
+}
+.agency-whatsapp svg { width: 24px; height: 24px; }
+.agency-whatsapp:hover { background: var(--agency-accent); color: var(--agency-foreground); }
+.agency-whatsapp:focus-visible { outline: 2px solid var(--agency-accent); outline-offset: 5px; }
+.agency-signature {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1148px;
+  margin: 28px auto 0;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--agency-border);
+  color: var(--agency-muted);
+}
+.agency-signature-logo { width: 150px; height: auto; object-fit: contain; flex-shrink: 0; }
+.agency-signature-credits { font: 400 12px/1.8 ui-sans-serif, system-ui, sans-serif; text-align: right; }
+@keyframes agency-screen {
+  0% { opacity: 0; }
+  21.43%, 92.86% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+@keyframes agency-logo-in {
+  from { opacity: 0; transform: translateY(12px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes agency-enter { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 767px) {
+  .agency-signature { flex-direction: column; margin-inline: 24px; gap: 16px; }
+  .agency-signature-credits { text-align: center; }
+}
+@media (min-width: 768px) and (max-width: 1196px) { .agency-signature { margin-inline: 24px; } }
+@media (prefers-reduced-motion: reduce) {
+  .agency-opening { animation-name: agency-screen-reduced; }
+  .agency-opening-logo, .agency-opening-label, .agency-whatsapp { animation: none; }
+  @keyframes agency-screen-reduced { 0%, 99.99% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 }
 
 @layer base {

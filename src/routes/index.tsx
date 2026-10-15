@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { AgencySignature } from "@/components/agency-identity";
 import {
   UtensilsCrossed,
   Beer,
@@ -532,6 +533,7 @@ function Index() {
             <ArrowUp className="h-4 w-4" /> Voltar ao topo
           </a>
         </div>
+        <AgencySignature />
       </footer>
 
       {showTop ? (
