@@ -6,7 +6,7 @@ import { AGENCY_OPENING_SESSION_KEY, AGENCY_WHATSAPP_URL, scheduleOpeningEnd } f
 function AgencyLogo({ className }: { className: string }) {
   const [failed, setFailed] = useState(false);
   return failed ? <span className="agency-logo-fallback">Canal360° Agência</span> : (
-    <img src={logo.url} alt="Canal360° Agência" width={1536} height={768} className={className} onError={() => setFailed(true)} />
+    <img src={logo.url} alt="Canal360° Agência" width={1774} height={887} className={className} onError={() => setFailed(true)} />
   );
 }
 
